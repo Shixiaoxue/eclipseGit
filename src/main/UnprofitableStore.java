@@ -1,6 +1,9 @@
 package main;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -66,11 +69,25 @@ public class UnprofitableStore {
 	public void setGoodoffer(Vector<Promotion> goodoffer) {
 		this.goodoffer = goodoffer;
 	}
+	public static String txt2String(File file){
+        String result = "";
+        try{
+            BufferedReader br = new BufferedReader(new FileReader(file));//构造一个BufferedReader类来读取文件
+            String s = null;
+            while((s = br.readLine())!=null){//使用readLine方法，一次读一行
+                result = result + "\n" +s;
+            }
+            br.close();    
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
 
 	public static void main(String[] args) throws FileNotFoundException {
 		// TODO Auto-generated method stub
 		UnprofitableStore store = new UnprofitableStore();
-		String data = "[ 'ITEM000000-3', 'ITEM000002-6', 'ITEM000003-2', 'ITEM000001-2' ]";
+		String data = txt2String(new File("shopinglists.txt"));
 		ShoppingList shoplist = new ShoppingList(data, store.goods, store.goodoffer);
 		shoplist.printShoppingList();	
 	}

@@ -47,14 +47,14 @@ public class UnprofitableStoreTest {
 	}
 	
 	@Test
-	public void GoodWithTwoForOneAnd95Discount() throws IOException {
+	public void GoodWithDiffPromotion() throws IOException {
 		//fail("Not yet implemented");
 		UnprofitableStore store = new UnprofitableStore();
 		String data = "[ 'ITEM000000-5' ]";
 		ShoppingList shoplist = new ShoppingList(data, store.getGoods(), store.getGoodoffer());
 		shoplist.printShoppingList();	
 		String result = shoplist.printShoppingList();	
-		String Truth_res = shoplist.txt2String(new File("GoodWithTwoForOneAnd95Discount_test.txt"));
+		String Truth_res = shoplist.txt2String(new File("GoodWithDiffPromotion_test.txt"));
 		Assert.assertEquals(Truth_res, result);
 	}
 	
