@@ -10,13 +10,13 @@
 ##encoding: GBK
 
 
-##注：商品信息，促销信息，购物清单以及测试数据均以.txt的形式读取和输出。
+##注：商品信息，促销信息，购物清单，测试数据以及打印的小票均以‘.txt’的形式读取和输出。
 
-###goodInfo.txt          商品信息
-###promotionInfo*.txt    促销信息
-###shopinglists.txt      购物清单
-###*_test.txt            测试数据
-###receipt.txt           购物小票
+####goodInfo.txt          商品信息
+####promotionInfo*.txt    促销信息
+####shopinglists.txt      购物清单
+####*_test.txt            测试数据
+####receipt.txt           购物小票
 
-###src                   main/test 包
-###build.gradle          gradle 构建信息
+####src                   main/test 包
+####build.gradle          gradle 构建信息
