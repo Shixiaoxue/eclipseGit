@@ -1,10 +1,8 @@
 package main;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.PrintStream;
 import java.text.DecimalFormat;
 import java.util.Map;
@@ -20,7 +18,7 @@ public class ShoppingList {
 		shoplist = new Vector<ShoppingTerm>();
 		this.goodoffer = goodoffer;
 		
-		Vector<String> goodinfo = parseData(inputStr);
+		Vector<String> goodinfo = util.parseData(inputStr);
 		
 		for(String str : goodinfo){	
 			int inter = str.indexOf('-');
@@ -31,7 +29,6 @@ public class ShoppingList {
 			ShoppingTerm term = new ShoppingTerm(curGood, num);
 			shoplist.add(term);
 		}
-		//printShoppingList();
 	}
 	
 	/**
@@ -58,7 +55,6 @@ public class ShoppingList {
 			printStr += "名称："+term.getGood().getName()+"， ";
 			printStr += "数量："+term.getNum()+term.getGood().getUnit()+"，";
 			
-//			DecimalFormat df = new DecimalFormat("######0.00");
 			double price = term.getGood().getPrice();
 			double subtotal = price * term.getNum();
 			printStr += "单价："+df.format(price)+"（元），";
@@ -108,39 +104,7 @@ public class ShoppingList {
 		System.out.println(printStr);
 		System.out.println("*********************************************");
 		
-		String receipt = txt2String(new File("receipt.txt"));
+		String receipt = util.txt2String(new File("receipt.txt"));
 		return receipt;
-	}
-	
-	public String txt2String(File file){
-        String result = "";
-        try{
-            BufferedReader br = new BufferedReader(new FileReader(file));//构造一个BufferedReader类来读取文件
-            String s = null;
-            while((s = br.readLine())!=null){//使用readLine方法，一次读一行
-                result = result + "\n" +s;
-            }
-            br.close();    
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return result;
-    }
-	
-	/**
-	 * 解析输入条形码数组
-	 * @param inputStr
-	 * @return
-	 */
-	private Vector<String> parseData(String inputStr){		
-		Vector<String> res = new Vector<String>();
-		int curs = inputStr.indexOf('\'');
-		while(curs != -1){
-			int curt = inputStr.indexOf('\'',curs+1);			
-			String curStr = inputStr.substring(curs+1,curt);					
-			res.add(curStr);			
-			curs = inputStr.indexOf('\'',curt+1);
-		}
-		return res;
-	}
+	}	
 }

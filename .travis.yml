@@ -1,0 +1,12 @@
+language: java 
+script: ./gradlew test
+before_install:
+- chmod +x gradlew
+
+notifications:
+ email:
+  recipient:
+   - shixiaoxue@bit.edu.cn
+   - 470489780@qq.com
+  on_success: change
+  on_failure: always 

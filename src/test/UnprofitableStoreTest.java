@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import main.ShoppingList;
 import main.UnprofitableStore;
+import main.util;
 
 public class UnprofitableStoreTest {
 
@@ -18,7 +19,7 @@ public class UnprofitableStoreTest {
 		String data = "[ 'ITEM000001-2' ]";
 		ShoppingList shoplist = new ShoppingList(data, store.getGoods(), store.getGoodoffer());
 		String result = shoplist.printShoppingList();	
-		String Truth_res = shoplist.txt2String(new File("NoPromotion_test.txt"));
+		String Truth_res = util.txt2String(new File("NoPromotion_test.txt"));
 		Assert.assertEquals(Truth_res, result);
 	}
 	
@@ -29,7 +30,7 @@ public class UnprofitableStoreTest {
 		String data = "[ 'ITEM000002-6' ]";
 		ShoppingList shoplist = new ShoppingList(data, store.getGoods(), store.getGoodoffer());
 		String result = shoplist.printShoppingList();	
-		String Truth_res = shoplist.txt2String(new File("OnlyTwoForOne_test.txt"));
+		String Truth_res = util.txt2String(new File("OnlyTwoForOne_test.txt"));
 		Assert.assertEquals(Truth_res, result);
 	}
 	
@@ -40,7 +41,7 @@ public class UnprofitableStoreTest {
 		String data = "[  'ITEM000003-2' ]";
 		ShoppingList shoplist = new ShoppingList(data, store.getGoods(), store.getGoodoffer());
 		String result = shoplist.printShoppingList();	
-		String Truth_res = shoplist.txt2String(new File("OnlyDiscount_test.txt"));
+		String Truth_res = util.txt2String(new File("OnlyDiscount_test.txt"));
 		Assert.assertEquals(Truth_res, result);
 	}
 	
@@ -51,7 +52,7 @@ public class UnprofitableStoreTest {
 		String data = "[ 'ITEM000000-5' ]";
 		ShoppingList shoplist = new ShoppingList(data, store.getGoods(), store.getGoodoffer());
 		String result = shoplist.printShoppingList();	
-		String Truth_res = shoplist.txt2String(new File("GoodWithDiffPromotion_test.txt"));
+		String Truth_res = util.txt2String(new File("GoodWithDiffPromotion_test.txt"));
 		Assert.assertEquals(Truth_res, result);
 	}
 	
@@ -62,11 +63,7 @@ public class UnprofitableStoreTest {
 		String data = "[ 'ITEM000000-3', 'ITEM000002-6', 'ITEM000003-2', 'ITEM000001-2' ]";
 		ShoppingList shoplist = new ShoppingList(data, store.getGoods(), store.getGoodoffer());
 		String result = shoplist.printShoppingList();	
-		String Truth_res = shoplist.txt2String(new File("AllKindsOf_test.txt"));
+		String Truth_res = util.txt2String(new File("AllKindsOf_test.txt"));
 		Assert.assertEquals(Truth_res, result);
 	}
-	
-	 
-	
-
 }

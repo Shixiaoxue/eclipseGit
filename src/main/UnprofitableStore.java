@@ -2,8 +2,9 @@ package main;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -11,49 +12,59 @@ import java.util.Map;
 import java.util.Vector;
 
 public class UnprofitableStore {
-	
-	private Map<String, Good> goods;			// 条形码可以唯一标识商品
-	private Vector<Promotion> goodoffer;		// 优惠清单，记录参与优惠的商品的条形码
-	
-	public UnprofitableStore(){
+
+	private Map<String, Good> goods; // 条形码可以唯一标识商品
+	private Vector<Promotion> goodoffer; // 优惠清单，记录参与优惠的商品的条形码
+
+	public UnprofitableStore() throws IOException {
 		stock();
 		setOfferInfo();
 	}
-	
+
 	// 进货
-	public void stock()
-	{
+	public void stock() throws IOException   {
 		goods = new HashMap<String, Good>();
-		goods.put("ITEM000000", new Good("ITEM000000", "可口可乐", "瓶", "食品",3.00));
-		goods.put("ITEM000001", new Good("ITEM000001", "雪碧", "瓶", "食品", 3.00));
-		goods.put("ITEM000002", new Good("ITEM000002", "羽毛球", "个", "运动器材", 1.00));
-		goods.put("ITEM000003", new Good("ITEM000003", "苹果", "斤", "食品", 5.50));
+		File file = new File("goodsInfo.txt");
+		if (file.isFile() && file.exists()) {
+			InputStreamReader read = new InputStreamReader(new FileInputStream(file), "GBK");
+			BufferedReader bufferedReader = new BufferedReader(read);
+			String inputStr = null;
+			while ((inputStr = bufferedReader.readLine()) != null) {
+				goods.put(util.ParseGoodsInfo(inputStr).getBarcode(), util.ParseGoodsInfo(inputStr));
+			}
+			bufferedReader.close();
+		} else {
+			System.out.println("找不到指定的文件！");
+		}
 	}
-	
+
 	// 优惠活动
-	public void setOfferInfo()
-	{
-		goodoffer = new Vector<Promotion>();	
-		Vector<String> barcodes = new Vector<String>();		//买二赠一
-		barcodes.add("ITEM000000");
-		barcodes.add("ITEM000002");
-		goodoffer.add(new TwoForOnePromotion(barcodes,1));
+	public void setOfferInfo() throws IOException {
+		goodoffer = new Vector<Promotion>();
+		Vector<String> barcodes = new Vector<String>(); // 买二赠一
 		
-		Vector<String> discount = new Vector<String>();		//95折
-		discount.add("ITEM000000");
-		discount.add("ITEM000003");
-		goodoffer.add(new DiscountPromotion(discount,2));			
+		String Promotion_twoForOne = util.txt2String(new File("promotionInfo_twoForOne.txt"));
+		barcodes = util.parseData(Promotion_twoForOne);
 		
+		goodoffer.add(new TwoForOnePromotion(barcodes, 1));
+
+		Vector<String> discount = new Vector<String>(); // 95折
+		
+		String promotion_95Discount = util.txt2String(new File("promotionInfo_95Discount.txt"));
+		discount = util.parseData(promotion_95Discount);
+		
+		goodoffer.add(new DiscountPromotion(discount, 2));
+
 		// 对优惠活动按优先级排序
-		Collections.sort(goodoffer,new Comparator<Promotion>() {
+		Collections.sort(goodoffer, new Comparator<Promotion>() {
 			public int compare(Promotion left, Promotion right) {
-                Promotion l = (Promotion)left;
-                Promotion r = (Promotion)right;
-                return l.getLevel() - r.getLevel();
-			}		
+				Promotion l = (Promotion) left;
+				Promotion r = (Promotion) right;
+				return l.getLevel() - r.getLevel();
+			}
 		});
 	}
-	
+
 	public Map<String, Good> getGoods() {
 		return goods;
 	}
@@ -69,26 +80,12 @@ public class UnprofitableStore {
 	public void setGoodoffer(Vector<Promotion> goodoffer) {
 		this.goodoffer = goodoffer;
 	}
-	public static String txt2String(File file){
-        String result = "";
-        try{
-            BufferedReader br = new BufferedReader(new FileReader(file));//构造一个BufferedReader类来读取文件
-            String s = null;
-            while((s = br.readLine())!=null){//使用readLine方法，一次读一行
-                result = result + "\n" +s;
-            }
-            br.close();    
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return result;
-    }
 
-	public static void main(String[] args) throws FileNotFoundException {
-		// TODO Auto-generated method stub
+	public static void main(String[] args) throws IOException {
+		
 		UnprofitableStore store = new UnprofitableStore();
-		String data = txt2String(new File("shopinglists.txt"));
+		String data = util.txt2String(new File("shopinglists.txt"));
 		ShoppingList shoplist = new ShoppingList(data, store.goods, store.goodoffer);
-		shoplist.printShoppingList();	
+		shoplist.printShoppingList();
 	}
 }
