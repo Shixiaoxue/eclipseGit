@@ -10,7 +10,7 @@ import main.ShoppingList;
 import main.UnprofitableStore;
 import main.util;
 
-public class UnprofitableStoreTest {
+public class ShoppingListTest {
 
 	@Test
 	public void NoPromotion() throws IOException {
