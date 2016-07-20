@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -82,10 +83,10 @@ public class UnprofitableStore {
 	}
 
 	public static void main(String[] args) throws IOException {
-		
+		PrintStream contrPrint = System.out;
 		UnprofitableStore store = new UnprofitableStore();
 		String data = util.txt2String(new File("shopinglists.txt"));
 		ShoppingList shoplist = new ShoppingList(data, store.goods, store.goodoffer);
-		shoplist.printShoppingList();
+		contrPrint.println(shoplist.printShoppingList());
 	}
 }
