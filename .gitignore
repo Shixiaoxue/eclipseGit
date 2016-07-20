@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-\bin\
-.gradle\*
-=======
 /bin/
 .gradle/*
->>>>>>> 1dca41223cb42c9821af24907571e2b3341a48d2
+

@@ -16,7 +16,6 @@ public class Good {
 		price = _price;
 	}
 	public Good() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getName() {
