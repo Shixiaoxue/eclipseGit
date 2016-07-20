@@ -28,7 +28,6 @@ public class UnprofitableStoreTest {
 		UnprofitableStore store = new UnprofitableStore();
 		String data = "[ 'ITEM000002-6' ]";
 		ShoppingList shoplist = new ShoppingList(data, store.getGoods(), store.getGoodoffer());
-		shoplist.printShoppingList();	
 		String result = shoplist.printShoppingList();	
 		String Truth_res = shoplist.txt2String(new File("OnlyTwoForOne_test.txt"));
 		Assert.assertEquals(Truth_res, result);
@@ -40,7 +39,6 @@ public class UnprofitableStoreTest {
 		UnprofitableStore store = new UnprofitableStore();
 		String data = "[  'ITEM000003-2' ]";
 		ShoppingList shoplist = new ShoppingList(data, store.getGoods(), store.getGoodoffer());
-		shoplist.printShoppingList();	
 		String result = shoplist.printShoppingList();	
 		String Truth_res = shoplist.txt2String(new File("OnlyDiscount_test.txt"));
 		Assert.assertEquals(Truth_res, result);
@@ -52,7 +50,6 @@ public class UnprofitableStoreTest {
 		UnprofitableStore store = new UnprofitableStore();
 		String data = "[ 'ITEM000000-5' ]";
 		ShoppingList shoplist = new ShoppingList(data, store.getGoods(), store.getGoodoffer());
-		shoplist.printShoppingList();	
 		String result = shoplist.printShoppingList();	
 		String Truth_res = shoplist.txt2String(new File("GoodWithDiffPromotion_test.txt"));
 		Assert.assertEquals(Truth_res, result);
